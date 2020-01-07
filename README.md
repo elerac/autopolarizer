@@ -4,6 +4,8 @@
 
 [![](https://img.youtube.com/vi/dfmbfFGqxJw/0.jpg)](https://www.youtube.com/watch?v=dfmbfFGqxJw)
 
+[https://youtu.be/dfmbfFGqxJw](https://youtu.be/dfmbfFGqxJw)
+
 ## Run on command line
 ```
 python automaticpolarizer.py <degree>
