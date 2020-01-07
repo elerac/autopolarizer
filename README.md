@@ -18,14 +18,23 @@ polarize = AutomaticPolarizer("/dev/tty.usbserial-FTRWB1RN")
 
 ### 偏光板のリセット
 機械原点に復帰させます．
-```
+```python
 polarizer.reset()
 ```
 
 ### 偏光板の角度
 クラスのメンバ`degree`は偏光板の角度と連動しています．
-```
+```python
 print(polarizer.degree) #現在の偏光板の角度を取得
 polarizer.degree = 90 #偏光板の角度が90[deg]になるように回転
 polarizer.degree += 60 #偏光板の角度が現在の角度から+60[deg]になるように回転
+```
+
+### 速度の設定
+ステージの移動時の最小速度，最大速度，加減速時間を設定します．
+```python
+spd_min = 500 #最小速度[PPS]
+spd_max = 5000 #最大速度[PPS]
+acceleration_time = 200 #加減速時間[mS]
+polarizer.set_speed(spd_min, spd_max, acceleration_time)
 ```
