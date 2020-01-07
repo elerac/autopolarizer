@@ -26,8 +26,8 @@ from automaticpolarizer import AutomaticPolarizer
 polarize = AutomaticPolarizer("/dev/tty.usbserial-FTRWB1RN")
 ```
 
-### 偏光板のリセット
-機械原点に復帰させます．
+### リセット
+ステージを機械原点に復帰させます．
 ```python
 polarizer.reset()
 ```
