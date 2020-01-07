@@ -36,8 +36,8 @@ polarizer.reset()
 クラスのメンバ`degree`は偏光板の角度と連動しています．
 ```python
 print(polarizer.degree) #現在の偏光板の角度を取得
-polarizer.degree = 90 #偏光板の角度が90[deg]になるように回転
-polarizer.degree += 60 #偏光板の角度が現在の角度から+60[deg]になるように回転
+polarizer.degree = 90   #偏光板の角度が90[deg]になるように回転
+polarizer.degree += 60  #偏光板の角度が現在の角度から+60[deg]になるように回転
 ```
 
 ### 速度の設定
