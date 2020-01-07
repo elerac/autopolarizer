@@ -6,6 +6,12 @@
 
 [https://youtu.be/dfmbfFGqxJw](https://youtu.be/dfmbfFGqxJw)
 
+## Requirement
+* [PySerial](https://github.com/pyserial/pyserial)
+```
+pip install pyserial
+```
+
 ## Run on command line
 ```
 python automaticpolarizer.py <degree>
