@@ -45,3 +45,24 @@ spd_max = 5000 #最大速度[PPS]
 acceleration_time = 200 #加減速時間[mS]
 polarizer.set_speed(spd_min, spd_max, acceleration_time)
 ```
+
+### ジョグ運転
+ステージを連続で回転させることができます．
+```python
+polarizer.jog() #+方向に回転
+time.sleep(1) #1秒待つ
+polarizer.stop() #ステージ停止
+
+polarizer.jog(reverse=True)　#-方向に回転
+time.sleep(1) #1秒待つ
+polarizer.stop() #ステージ停止
+```
+
+### 移動中に別の動作を行う
+`reset`や`degree`でのステージの移動において，デフォルトでは移動が完了するまで待つ処理を行っています．移動中にも別の処理を行いたい場合は，メンバ変数`is_sleep_until_stop`を`False`に設定してください．
+```python
+polarizer.is_sleep_until_stop = False #移動完了を待つフラグをFalseにする
+polarizer.degree = 180 #移動開始（移動完了を待たずに次の処理に行く）
+"""ここに移動中に行う処理を書く"""
+polarizer.sleep_until_stop() #明示的に移動完了を待つ
+```
