@@ -7,10 +7,7 @@
 [https://youtu.be/dfmbfFGqxJw](https://youtu.be/dfmbfFGqxJw)
 
 ## Requirement
-* [PySerial](https://github.com/pyserial/pyserial)
-```
-pip install pyserial
-```
+* [pySerial](https://github.com/pyserial/pyserial)
 
 ## Run on command line
 ```
@@ -23,7 +20,7 @@ python automaticpolarizer.py <degree>
 インスタンスの作成時に接続要求が行われます．
 ```python
 from automaticpolarizer import AutomaticPolarizer
-polarize = AutomaticPolarizer("/dev/tty.usbserial-FTRWB1RN")
+polarizer = AutomaticPolarizer("/dev/tty.usbserial-FTRWB1RN")
 ```
 
 ### リセット
