@@ -7,10 +7,7 @@
 [https://youtu.be/dfmbfFGqxJw](https://youtu.be/dfmbfFGqxJw)
 
 ## Requirement
-* [PySerial](https://github.com/pyserial/pyserial)
-```
-pip install pyserial
-```
+* [pySerial](https://github.com/pyserial/pyserial)
 
 ## Run on command line
 ```
@@ -23,11 +20,11 @@ python automaticpolarizer.py <degree>
 インスタンスの作成時に接続要求が行われます．
 ```python
 from automaticpolarizer import AutomaticPolarizer
-polarize = AutomaticPolarizer("/dev/tty.usbserial-FTRWB1RN")
+polarizer = AutomaticPolarizer("/dev/tty.usbserial-FTRWB1RN")
 ```
 
-### 偏光板のリセット
-機械原点に復帰させます．
+### リセット
+ステージを機械原点に復帰させます．
 ```python
 polarizer.reset()
 ```
@@ -41,7 +38,7 @@ polarizer.degree += 60  #偏光板の角度が現在の角度から+60[deg]に�
 ```
 
 ### 速度の設定
-ステージの移動時の最小速度[PPS]，最大速度[PPS]，加減速時間[mS]（最小速度→最大速度or最大速度→最小速度に切り替わるまでの時間）を設定します．
+ステージの移動時の最小速度[PPS]，最大速度[PPS]，加減速時間[mS]（最小速度→最大速度or最大速度→最小速度に切り替わるまでの時間）を設定します．最小速度・最大速度の設定範囲は100-20000です．加減速時間の設定範囲は0-1000です．最大速度は最小速度以上の値に設定する必要があります．速度の設定は100[PPS]単位で行う必要があります．
 ```python
 spd_min = 500 #最小速度[PPS]
 spd_max = 5000 #最大速度[PPS]
