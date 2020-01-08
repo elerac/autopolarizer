@@ -33,6 +33,11 @@ class AutomaticPolarizer:
         ret = self.raw_command("H:1")
         if self.is_sleep_until_stop: self.sleep_until_stop()
         return ret
+
+    def jog(self, reverse=False):
+        ret = self.raw_command("J:1+") if reverse==False else self.raw_command("J:1-")
+        if ret==False: return False
+        return self.raw_command("G:")
     
     def stop(self, immediate=False):
         return (self.raw_command("L:1") if immediate==False else
