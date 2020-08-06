@@ -14,6 +14,7 @@ class AutomaticPolarizer:
         
         self.degree_per_pulse = 0.060 #[deg/pulse]
         self.is_sleep_until_stop = True
+        self.flip_front = False
 
     def __del__(self):
         try:
@@ -57,12 +58,17 @@ class AutomaticPolarizer:
         
     @property
     def degree(self):
-        return self._position2degree(self._get_position())
+        deg = self._position2degree(self._get_position())
+        if self.flip_front==True: deg = 360 - deg
+        return deg
 
     @degree.setter
     def degree(self, deg_dst):
         deg_src = self.degree
         deg_dst %= 360
+        if self.flip_front==True:
+            deg_src = 360 - deg_src
+            deg_dst = 360 - deg_dst
         position = self._degree2position((deg_dst-deg_src)%360)
         self._set_position_relative(position)
     
