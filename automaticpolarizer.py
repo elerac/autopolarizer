@@ -40,8 +40,8 @@ class AutomaticPolarizer:
         if ret==False: return False
         return self.raw_command("G:")
     
-    def jog_minus(self, reverse=False):
-        ret self.raw_command("J:1-")
+    def jog_minus(self):
+        ret = self.raw_command("J:1-")
         if ret==False: return False
         return self.raw_command("G:")
     
