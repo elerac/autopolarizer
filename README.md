@@ -49,11 +49,11 @@ polarizer.set_speed(spd_min, spd_max, acceleration_time)
 ### ジョグ運転
 ステージを連続で回転させることができます．
 ```python
-polarizer.jog() #+方向に回転
+polarizer.jog_plus() #+方向に回転
 time.sleep(1) #1秒待つ
 polarizer.stop() #ステージ停止
 
-polarizer.jog(reverse=True)　#-方向に回転
+polarizer.jog_minus()　#-方向に回転
 time.sleep(1) #1秒待つ
 polarizer.stop() #ステージ停止
 ```
