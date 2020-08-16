@@ -6,21 +6,24 @@
 
 [https://youtu.be/dfmbfFGqxJw](https://youtu.be/dfmbfFGqxJw)
 
-## Requirement
+## 必要なモジュール
 * [pySerial](https://github.com/pyserial/pyserial)
 
-## Run on command line
-```
-python automaticpolarizer.py <degree>
-```
-偏光板を指定した角度`degree`に回転させます．シリアルポート名は`/dev/tty.usbserial-FTRWB1RN`がデフォルトになっています．変更する場合は，`--port`オプションで指定してください．
 
-## Use as a module
+## インストール方法
+```sh
+git clone https://github.com/elerac/autopolarizer.git 
+cd autopolarizer
+python setup.py install
+```
+
+
+## 使い方
 ### インスタンスの作成
 インスタンスの作成時に接続要求が行われます．
 ```python
-from automaticpolarizer import AutomaticPolarizer
-polarizer = AutomaticPolarizer("/dev/tty.usbserial-FTRWB1RN")
+from autopolarizer import *
+polarizer = AutoPolarizer("/dev/tty.usbserial-FTRWB1RN")
 ```
 
 ### リセット
@@ -58,8 +61,8 @@ time.sleep(1) #1秒待つ
 polarizer.stop() #ステージ停止
 ```
 
-### 偏光板の前方方向の反転
-偏光板の前方方向を反転します．このとき，角度は"360-角度"になります．
+### 偏光板の方向の反転
+偏光板の方向を反転します．このとき，角度は"360-角度"になります．
 ```python
 polarizer.flip_front = True
 ```
