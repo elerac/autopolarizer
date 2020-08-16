@@ -9,7 +9,6 @@
 ## 必要なモジュール
 * [pySerial](https://github.com/pyserial/pyserial)
 
-
 ## インストール方法
 ```sh
 git clone https://github.com/elerac/autopolarizer.git 
@@ -17,10 +16,9 @@ cd autopolarizer
 python setup.py install
 ```
 
-
 ## 使い方
 ### インスタンスの作成
-インスタンスの作成時に接続要求が行われます．
+インスタンスの作成時に接続要求が行われます．コンストラクタに渡す引数はシリアルポート名ですが，環境によっては下の例と違う場合があります．自分の環境に応じて適宜確認してください．
 ```python
 from autopolarizer import *
 polarizer = AutoPolarizer("/dev/tty.usbserial-FTRWB1RN")
