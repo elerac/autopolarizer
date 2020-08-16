@@ -25,10 +25,10 @@ class AutoPolarizer:
         # 1パルスで移動する角度（固定値）
         self.degree_per_pulse = 0.060 # [deg/pulse]
 
-        # ステージを動かしたときに待つかどうか
+        # ステージを動かしたときに待つかどうかのフラグ
         self.is_sleep_until_stop = True
         
-        # ステージの向きを反転させるかどうか
+        # ステージの向きを反転させるかどうかのフラグ
         # 向きによって回転角度が反転するため，このフラグで補正する
         self.flip_front = False
 
