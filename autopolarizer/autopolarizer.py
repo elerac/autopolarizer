@@ -8,7 +8,7 @@ import serial
     polarizer holder: TWIN NINES, PWA-100（ツクモ工学，自動偏光子ホルダーφ100用 PWA-100）
 """
 
-class AutomaticPolarizer:
+class AutoPolarizer:
     def __init__(self, port=None, baudrate=9600, bytesize=serial.EIGHTBITS, parity=serial.PARITY_NONE, stopbits=serial.STOPBITS_ONE, timeout=None, xonxoff=False, rtscts=False, write_timeout=None, dsrdtr=False, inter_byte_timeout=None):
         self.ser = serial.Serial(port, baudrate, bytesize, parity, stopbits, timeout, xonxoff, rtscts, write_timeout, dsrdtr, inter_byte_timeout)
         
@@ -119,7 +119,7 @@ def main():
     is_reset = args.reset
 
     #connect to the polarizer
-    polarizer = AutomaticPolarizer(port=port)
+    polarizer = AutoPolarizer(port=port)
     
     #set speed as default
     polarizer.set_speed()

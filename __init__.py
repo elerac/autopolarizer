@@ -1,1 +1,0 @@
-from .automaticpolarizer import AutomaticPolarizer
