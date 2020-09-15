@@ -11,9 +11,7 @@
 
 ## インストール方法
 ```sh
-git clone https://github.com/elerac/autopolarizer.git 
-cd autopolarizer
-python setup.py install
+pip install git+https://github.com/elerac/autopolarizer
 ```
 
 ## 使い方
