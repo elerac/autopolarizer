@@ -22,75 +22,48 @@ import time
 import serial
 
 
-class AutoPolarizer:
-    def __init__(
-        self,
-        port=None,
-        baudrate=9600,
-        bytesize=serial.EIGHTBITS,
-        parity=serial.PARITY_NONE,
-        stopbits=serial.STOPBITS_ONE,
-        timeout=None,
-        xonxoff=False,
-        rtscts=False,
-        write_timeout=None,
-        dsrdtr=False,
-        inter_byte_timeout=None,
-    ):
-        """自動偏光子ホルダーに命令を送信する
+class AutoPolarizer(serial.Serial):
+    """自動偏光子ホルダーに命令を送信する
 
-        Parameters
-        ----------
-        引数は全てpyserialのserial.Serial()の引数と同じ
-        https://pyserial.readthedocs.io/en/latest/pyserial_api.html#serial.Serial
+    Parameters
+    ----------
+    引数は全てpyserialのserial.Serial()の引数と同じ
+    https://pyserial.readthedocs.io/en/latest/pyserial_api.html#serial.Serial
 
-        Attributes
-        ----------
-        is_sleep_until_stop : bool
-            ステージを動かしたときに待つかのフラグ
-        flip_front : bool
-            ステージの向きを反転させるかどうかのフラグ
-            向きによって回転角度が反転するため，このフラグで補正する
+    Attributes
+    ----------
+    is_sleep_until_stop : bool
+        ステージを動かしたときに待つかのフラグ
+    flip_front : bool
+        ステージの向きを反転させるかどうかのフラグ
+        向きによって回転角度が反転するため，このフラグで補正する
 
-        Methods
-        -------
-        raw_command(cmd)
-            コントローラにコマンドを送信
-        reset()
-            機械原点復帰命令を送信
-        jog_plus()
-            +方向にジョグ運転
-        jog_minus()
-            -方向にジョグ運転
-        stop(immediate=False)
-            停止命令を送信
-        is_stopped()
-            ステージが停止しているかを取得
-        sleep_until_stop()
-            ステージが停止するまで待つ
-        set_speed(spd_min=500, spd_max=5000, acceleration_time=200)
-            速度設定命令を送信
-        """
-        self.__ser = serial.Serial(
-            port,
-            baudrate,
-            bytesize,
-            parity,
-            stopbits,
-            timeout,
-            xonxoff,
-            rtscts,
-            write_timeout,
-            dsrdtr,
-            inter_byte_timeout,
-        )
+    Methods
+    -------
+    raw_command(cmd)
+        コントローラにコマンドを送信
+    reset()
+        機械原点復帰命令を送信
+    jog_plus()
+        +方向にジョグ運転
+    jog_minus()
+        -方向にジョグ運転
+    stop(immediate=False)
+        停止命令を送信
+    is_stopped()
+        ステージが停止しているかを取得
+    sleep_until_stop()
+        ステージが停止するまで待つ
+    set_speed(spd_min=500, spd_max=5000, acceleration_time=200)
+        速度設定命令を送信
+    """
 
-        # ステージを動かしたときに待つかどうかのフラグ
-        self.is_sleep_until_stop = True
+    # ステージを動かしたときに待つかどうかのフラグ
+    is_sleep_until_stop = True
 
-        # ステージの向きを反転させるかどうかのフラグ
-        # 向きによって回転角度が反転するため，このフラグで補正する
-        self.flip_front = False
+    # ステージの向きを反転させるかどうかのフラグ
+    # 向きによって回転角度が反転するため，このフラグで補正する
+    flip_front = False
 
     @property
     def degree_per_pulse(self):
@@ -100,7 +73,7 @@ class AutoPolarizer:
     def __del__(self):
         """ステージとのシリアル接続を終了"""
         try:
-            self.__ser.close()
+            self.close()
         except AttributeError:
             pass
 
@@ -123,9 +96,9 @@ class AutoPolarizer:
             OKなら``True``
             NGなら``False``
         """
-        self.__ser.write(cmd.encode())
-        self.__ser.write(b"\r\n")
-        return_msg = self.__ser.readline().decode()[:-2]  # -2: 文字列に改行コードが含まれるため，それ以外を抜き出す．
+        self.write(cmd.encode())
+        self.write(b"\r\n")
+        return_msg = self.readline().decode()[:-2]  # -2: 文字列に改行コードが含まれるため，それ以外を抜き出す．
         return (
             True
             if return_msg == "OK" 
@@ -219,8 +192,14 @@ class AutoPolarizer:
         acceleration_time : int
           加減速時間
           設定範囲：0～1000（単位：mS）
+
+        Notes
+        -----
+        最大速度は必ず最小速度以上の値を設定
+        速度の設定は 100[PPS]単位、100[PPS]未満の値は切り捨て
         """
         clip = lambda v, v_min, v_max: max(v_min, min(v_max, v))
+        spd_max = max(spd_max, spd_min)  # 最大速度は必ず最小速度以上の値を設定
         spd_min = clip(int(spd_min), 100, 20000)
         spd_max = clip(int(spd_max), 100, 20000)
         acceleration_time = clip(int(acceleration_time), 0, 1000)
@@ -373,3 +352,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+    
